@@ -2,12 +2,14 @@
   "scripts": {
     "start": "node index.js"
   },
-  
   "name": "hotel-app-console",
   "version": "1.0.0",
   "main": "index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "request": "^2.88.2"
+  }
 }
