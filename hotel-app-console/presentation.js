@@ -44,6 +44,7 @@ readL.question('Faites votre choix', function(saisie) {
             break;
         
         case '2':
+            service.ajouterClient()
             break;
 
         case '99' :

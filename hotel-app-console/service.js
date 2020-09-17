@@ -10,10 +10,21 @@ function listerClients(callbackOK, callbackKO) {
             if (err) {
                 callbackKO(err);
             } else {
-                callbackOK(listeDeClients)
+                callbackOK(listeDeClients);
             }
         });
 
     }
-
+function ajouterClient(){
+    request.post({
+        url: 'http://localhost:8080/clients',
+        method: 'POST',
+        json: {nom: 'Robert', prenoms: 'De Niro'}
+    },
+        function (err, res, body) {
+            console.log(body);
+        }
+    );
+}
 exports.listerClients = listerClients;
+exports.ajouterClient = ajouterClient;
