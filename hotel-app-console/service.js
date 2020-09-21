@@ -1,30 +1,58 @@
-var request = require('request');
+class Service{
 
-var backendUrl = 'https://cqlv2-hotel-web-api.herokuapp.com';
+    constructor(){
+        this.request = require('request-promise-native');
+        //npm install --save request-promise-native
+    }
 
-function listerClients(callbackOK, callbackKO) {
-
-    request(backendUrl + '/clients?start=0&size=3', {json: true}, 
-        function (err, res, listeDeClients) {
-            //3
-            if (err) {
-                callbackKO(err);
-            } else {
-                callbackOK(listeDeClients);
-            }
+    listerClients() {
+        return new Promise((resolve, reject) => {
+            this.request.get('https://cqlv2-hotel-web-api.herokuapp.com/clients'), {json: true}, 
+            function (err, res, body) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(body);
+                }
+            };
+    
         });
+    }
+
+
+    findByName(nomClient) {
+        return new Promise((resolve, reject) => {
+            this.request.get('https://cqlv2-hotel-web-api.herokuapp.com/clients/nom=${nomClientr}', { json: true }, 
+            function (err, res, body) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(body);
+                }
+            });
+        })
 
     }
-function ajouterClient(){
-    request.post({
-        url: 'http://localhost:8080/clients',
-        method: 'POST',
-        json: {nom: 'Robert', prenoms: 'De Niro'}
-    },
-        function (err, res, body) {
-            console.log(body);
-        }
-    );
+
+    ajouterClient(saisieNom, saisiePrenom) {
+        return new Promise((resolve, reject) => {
+            this.request.post({
+                url: 'https://cqlv2-hotel-web-api.herokuapp.com/clients',
+                method: 'POST',
+                json: {
+                    nom: saisieNom,
+                    prenoms: saisiePrenom
+                }
+            }, function (err, res, body) {
+                if (err) {
+                    reject(err);
+                } else {
+                    return resolve(body);
+                }
+            });
+        })
+
+    }
 }
-exports.listerClients = listerClients;
-exports.ajouterClient = ajouterClient;
+
+exports.Service = Service;

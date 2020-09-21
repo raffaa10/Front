@@ -1,3 +1,2 @@
-var presentation = require('./presentation');
-console.log('** Administration Hotel **');
-presentation.demarrer();
+const menu = require('./presentation.js');
+menu.demarrer();
